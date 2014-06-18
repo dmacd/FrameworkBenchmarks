@@ -11,7 +11,7 @@ def start(args, logfile, errfile):
     subprocess.check_call("../sbt/sbt assembly", shell=True, cwd="curacao", stderr=errfile, stdout=logfile)
 
   subprocess.Popen("java -jar dist/curacao-standalone.jar", shell=True, cwd="curacao", stderr=errfile, stdout=logfile)
-   
+
   time.sleep(5)
   return 0
 
@@ -28,7 +28,7 @@ def stop(logfile, errfile):
           os.kill(pid, 15)
         except OSError:
           pass
-  
+
   return 0
 
 ##start([], open('log.out','a'), open('error.out','a'))

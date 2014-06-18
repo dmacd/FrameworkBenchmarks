@@ -248,20 +248,20 @@ class Installer:
 #     self.__run_command("sudo luarocks install http://github.com/leafo/lapis/raw/master/lapis-dev-1.rockspec")
 
 
-#     #
-#     # Resin
-#     #
+    #
+    # Resin
+    #
 
-#     self.__run_command("sudo cp -r /usr/lib/jvm/java-1.7.0-openjdk-amd64/include /usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/bin/")
-#     self.__download("http://www.caucho.com/download/resin-4.0.36.tar.gz")
-#     self.__run_command("tar xzf resin-4.0.36.tar.gz")
-#     self.__run_command("./configure --prefix=`pwd`", cwd="resin-4.0.36")
-#     self.__run_command("make", cwd="resin-4.0.36")
-#     self.__run_command("make install", cwd="resin-4.0.36")
-#     self.__run_command("mv conf/resin.properties conf/resin.properties.orig", cwd="resin-4.0.36")
-#     self.__run_command("cat ../config/resin.properties > resin-4.0.36/conf/resin.properties")
-#     self.__run_command("mv conf/resin.xml conf/resin.xml.orig", cwd="resin-4.0.36")
-#     self.__run_command("cat ../config/resin.xml > resin-4.0.36/conf/resin.xml")
+    self.__run_command("sudo cp -r /usr/lib/jvm/java-1.7.0-openjdk-amd64/include /usr/lib/jvm/java-1.7.0-openjdk-amd64/jre/bin/")
+    self.__download("http://www.caucho.com/download/resin-4.0.36.tar.gz")
+    self.__run_command("tar xzf resin-4.0.36.tar.gz")
+    self.__run_command("./configure --prefix=`pwd`", cwd="resin-4.0.36")
+    self.__run_command("make", cwd="resin-4.0.36")
+    self.__run_command("make install", cwd="resin-4.0.36")
+    self.__run_command("mv conf/resin.properties conf/resin.properties.orig", cwd="resin-4.0.36")
+    self.__run_command("cat ../config/resin.properties > resin-4.0.36/conf/resin.properties")
+    self.__run_command("mv conf/resin.xml conf/resin.xml.orig", cwd="resin-4.0.36")
+    self.__run_command("cat ../config/resin.xml > resin-4.0.36/conf/resin.xml")
 
 #     #
 #     # Mongrel2

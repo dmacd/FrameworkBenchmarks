@@ -5,7 +5,7 @@ import os
 
 def start(args, logfile, errfile):
   setup_util.replace_text("ninja-resin/src/main/webapp/WEB-INF/resin-web.xml", "mysql:\/\/.*:3306", "mysql://" + args.database_host + ":3306")
-  
+
   try:
     subprocess.check_call("mvn clean compile war:war", shell=True, cwd="ninja-resin", stderr=errfile, stdout=logfile)
 
