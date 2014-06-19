@@ -26,12 +26,17 @@ def start(args, logfile, errfile):
     #subprocess.Popen('sudo /usr/local/nginx/sbin/nginx -c `pwd`/nginx.conf', shell=True, cwd='dart-stream', stderr=errfile, stdout=logfile);
     #subprocess.Popen('`pwd`/sudo /usr/local/nginx/sbin/nginx -c `pwd`/nginx.conf', shell=True, cwd='dart-stream', stderr=errfile, stdout=logfile);
 
+
+
     test_dir = 'nginx-clojure'
 
     nginx_dir = test_dir+'/'+'nginx-clojure-0.2.2/nginx-1.6.0'
 
-    subprocess.Popen('nginx-linux-x64', shell=True,
-                     cwd=nginx_dir, stderr=errfile, stdout=logfile);
+#     subprocess.Popen('nginx-linux-x64', shell=True,
+#                      cwd=nginx_dir, stderr=errfile, stdout=logfile);
+
+    subprocess.Popen('`pwd`/nginx-clojure-0.2.2/nginx-1.6.0/nginx-linux-x64', shell=True,
+                     cwd=test_dir, stderr=errfile, stdout=logfile);
 
     return 0
   except subprocess.CalledProcessError:
