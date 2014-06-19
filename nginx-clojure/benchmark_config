@@ -17,7 +17,7 @@
       "webserver": "nginx-clojure",
       "os": "Linux",
       "database_os": "Linux",
-      "display_name": "nginx-clojure,
+      "display_name": "nginx-clojure",
       "notes": "",
       "versus": ""
     }
