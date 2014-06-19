@@ -32,11 +32,12 @@ def start(args, logfile, errfile):
 
     nginx_dir = test_dir+'/'+'nginx-clojure-0.2.2/nginx-1.6.0'
 
-#     subprocess.Popen('nginx-linux-x64', shell=True,
-#                      cwd=nginx_dir, stderr=errfile, stdout=logfile);
+    subprocess.Popen('./nginx-linux-x64', shell=True,
+                     cwd=nginx_dir, stderr=errfile, stdout=logfile);
 
-    subprocess.Popen('`pwd`/nginx-clojure-0.2.2/nginx-1.6.0/nginx-linux-x64', shell=True,
-                     cwd=test_dir, stderr=errfile, stdout=logfile);
+
+#     subprocess.Popen('`pwd`/nginx-clojure-0.2.2/nginx-1.6.0/nginx-linux-x64', shell=True,
+#                      cwd=n, stderr=errfile, stdout=logfile);
 
     return 0
   except subprocess.CalledProcessError:
