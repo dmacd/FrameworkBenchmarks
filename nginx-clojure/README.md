@@ -50,3 +50,8 @@ in the `nginx.conf`
 ## test
 
 - disable logs
+
+
+- nginx is only using 100% of one core apparently...should be able to use more !?
+
+-- might want to check other nginx configs
