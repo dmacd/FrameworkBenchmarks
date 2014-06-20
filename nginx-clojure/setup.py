@@ -46,7 +46,7 @@ def start(args, logfile, errfile):
 
 
     # configure database host
-    setup_util.replace_text(nginx_dir+"/"+"conf/nginx.conf", ":db-host \".*\"", args.database_host)
+    setup_util.replace_text(nginx_dir+"/"+"conf/nginx.conf", ":db-host \".*\"", ":db-host \""+ args.database_host + "\"")
 
 
 
