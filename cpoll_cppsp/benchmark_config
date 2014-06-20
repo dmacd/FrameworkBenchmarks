@@ -44,7 +44,7 @@
     "postgres-raw": {
       "setup_file": "setup",
       "db_url": "/db_pg_async",
-      "query_url": "/db_pg_async?queries=", 
+      "query_url": "/db_pg_async?queries=",
       "port": 16969,
       "approach": "Realistic",
       "classification": "Platform",
@@ -63,7 +63,7 @@
     "postgres-raw-threadpool": {
       "setup_file": "setup",
       "db_url": "/db_pg_threadpool",
-      "query_url": "/db_pg_threadpool?queries=", 
+      "query_url": "/db_pg_threadpool?queries=",
       "port": 16969,
       "approach": "Realistic",
       "classification": "Platform",

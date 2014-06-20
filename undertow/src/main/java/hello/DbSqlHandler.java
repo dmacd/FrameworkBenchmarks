@@ -35,13 +35,13 @@ final class DbSqlHandler implements HttpHandler {
       exchange.dispatch(this);
       return;
     }
-    
+
     int queries = 1;
     if(multiple)
     {
       queries = Helper.getQueries(exchange);
     }
-    
+
     World[] worlds = new World[queries];
     try (Connection connection = database.getConnection();
          PreparedStatement statement = connection.prepareStatement(
@@ -60,7 +60,7 @@ final class DbSqlHandler implements HttpHandler {
     }
     exchange.getResponseHeaders().put(
         Headers.CONTENT_TYPE, JSON_UTF8);
-    
+
     if (multiple)
     {
       // If a multiple query then response must be an array

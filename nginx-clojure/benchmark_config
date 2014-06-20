@@ -5,7 +5,7 @@
       "setup_file": "setup",
       "json_url": "/nginx-clojure/json",
       "db_url": "/nginx-clojure/db",
-      "query_url": "/nginx-clojure/db/",
+      "query_url": "/nginx-clojure/db/?q=",
       "port": 8080,
       "approach": "Realistic",
       "classification": "Platform",

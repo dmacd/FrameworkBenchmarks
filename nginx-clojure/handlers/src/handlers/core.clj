@@ -1,11 +1,12 @@
 (ns handlers.core
   (:gen-class)
-  ;(:use
+  (:use
    ;compojure.core
         ;ring.middleware.json
         ;org.httpkit.server
         ;[clojure.tools.cli :only [cli]]
         ;ring.util.response
+         ring.middleware.params
    ;     )
   (:require ;clojure.data.json
                [org.httpkit.dbcp :as db]
@@ -14,6 +15,10 @@
     ;clojure.java.jdbc
    ;/with-naming-strategy
    ))
+
+
+
+
 
 ;(comment
   ;;; convert to int
@@ -27,6 +32,8 @@
   (defn get-world []
     (let [id (inc (rand-int 9999))] ; Num between 1 and 10,000
       ; Set a naming strategy to preserve column name case
+
+
       (clojure.java.jdbc/with-naming-strategy {:keyword identity}
         (db/query "select * from world where id = ?" id))))
 
@@ -48,7 +55,7 @@
           q)))) ; otherwise use provided value
 
 
- ; )
+ ;)
 
 (defn handle-json [req]
   {
@@ -60,29 +67,50 @@
    })
 
 
-;(comment
-  (defn handle-queries [req]
+(defn handle-queries [req]
+  {
+   :status   200,
+   :headers  {"content-type" "application/json"},
+   :body     (clj-json.core/generate-string
+              (first (run-queries 1)))
+
+   }
+
+  )
+
+
+(defn handle-multiple-queries [req]
     {
-     :status   200,
-     :headers  {"content-type" "application/json"},
-     :body     (clj-json.core/generate-string
-                (first (run-queries 1)))
+   :status   200,
+   :headers  {"content-type" "application/json"},
+   :body     (clj-json.core/generate-string
+              (first (run-queries
+                      (get-query-count{:queries {:query-params req} }))))
 
-     }
-
-    )
-
+   })
 
 
 
-  (defn init-server [{:keys [port db-host]}]
-    (println "Initializing clojure handler...")
-    (println (str "db-host: " db-host) )
-    (db/use-database! (str "jdbc:mysql://" db-host "/hello_world?jdbcCompliantTruncation=false&elideSetAutoCommits=true&useLocalSessionState=true&cachePrepStmts=true&cacheCallableStmts=true&alwaysSendSetIsolation=false&prepStmtCacheSize=4096&cacheServerConfiguration=true&prepStmtCacheSqlLimit=2048&zeroDateTimeBehavior=convertToNull&traceProtocol=false&useUnbufferedInput=false&useReadAheadInput=false&maintainTimeStats=false&useServerPrepStmts&cacheRSMetadata=true")
-                      "benchmarkdbuser"
-                      "benchmarkdbpass")
-    )
-  ;)
+(defn init-server [{:keys [port db-host]}]
+  (println "Initializing clojure handler...")
+  (println (str "db-host: " db-host) )
+
+
+  ;; to use sql directly might do....
+  ;;     (def mysql-db {:subprotocol "mysql"
+  ;;                :subname "//127.0.0.1:3306/clojure_test"
+  ;;                :user "clojure_test"
+  ;;                :password "clojure_test"})
+
+
+  (db/use-database! (str "jdbc:mysql://" db-host "/hello_world?jdbcCompliantTruncation=false&elideSetAutoCommits=true&useLocalSessionState=true&cachePrepStmts=true&cacheCallableStmts=true&alwaysSendSetIsolation=false&prepStmtCacheSize=4096&cacheServerConfiguration=true&prepStmtCacheSqlLimit=2048&zeroDateTimeBehavior=convertToNull&traceProtocol=false&useUnbufferedInput=false&useReadAheadInput=false&maintainTimeStats=false&useServerPrepStmts&cacheRSMetadata=true")
+                    "benchmarkdbuser"
+                    "benchmarkdbpass")
+  )
+
+
+
+
 
 
 
