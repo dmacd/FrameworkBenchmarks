@@ -9,7 +9,7 @@ import os
 def start(args, logfile, errfile):
 
 
-    stop(logfile, errfile); # kill anyone that gets in our way
+  stop(logfile, errfile); # kill anyone that gets in our way
 
 
   #  setup_util.replace_text('dart-stream/postgresql.yaml', 'host: .*', 'host: ' + args.database_host)
@@ -40,9 +40,9 @@ def start(args, logfile, errfile):
 
     # build the handlers project
 
-    subprocess.check_call("lein clean", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
-    subprocess.check_call("lein deps", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
-    subprocess.check_call("rm -rf target", shell=True, cwd=handlers_dir)
+#    subprocess.check_call("lein clean", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
+#    subprocess.check_call("lein deps", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
+#    subprocess.check_call("rm -rf target", shell=True, cwd=handlers_dir)
 
     # pack all dependencies into a single jar: target/handlers-standalone.jar
     subprocess.check_call("lein uberjar", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
@@ -76,6 +76,7 @@ def stop(logfile, errfile):
   #
   try:
     # listen on 8080
+    subprocess.check_call("ps -A | grep nginx | xargs kill", shell=True, stderr=errfile, stdout=logfile) # hacky but should kill any lingering nginx
     subprocess.check_call("lsof -t -sTCP:LISTEN -i:8080 | xargs kill", shell=True, stderr=errfile, stdout=logfile)
     return 0
   except subprocess.CalledProcessError:
