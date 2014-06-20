@@ -20,7 +20,7 @@ def npm(logfile, errfile):
     subprocess.check_call("copy package.json package.json.dist /y > NUL", shell=True, cwd="nodejs", stderr=errfile, stdout=logfile)
     setup_util.replace_text("nodejs/package.json", ".*mysql.*", "")
     setup_util.replace_text("nodejs/package.json", ".*mapper.*", "")
-  
+
   try:
     subprocess.check_call("npm install", shell=True, cwd="nodejs", stderr=errfile, stdout=logfile)
   finally:
@@ -32,7 +32,7 @@ def stop(logfile, errfile):
   if os.name == 'nt':
     subprocess.Popen("taskkill /f /im node.exe > NUL", shell=True, stderr=errfile, stdout=logfile)
     return 0
-  
+
   p = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE)
   out, err = p.communicate()
   for line in out.splitlines():

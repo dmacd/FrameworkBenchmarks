@@ -4,7 +4,11 @@
   :dependencies [
                  [org.clojure/clojure "1.6.0"]
                  ;[org.clojure/clojure "1.5.1"] ; maybe match nginx version if there are issues
-                 [clj-json "0.5.3" ]]
+                 [clj-json "0.5.3" ]
+                 [mysql/mysql-connector-java "5.1.6"]
+
+                 ]
+
   :main ^:skip-aot handlers.core ; ??
   :target-path "target/%s"
   :uberjar-name "handlers-standalone.jar"

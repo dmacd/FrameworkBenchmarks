@@ -16,9 +16,15 @@ def start(args, logfile, errfile):
   #  setup_util.replace_text('dart-stream/mongodb.yaml', 'host: .*', 'host: ' + args.database_host)
   try:
 
+
+
+
     test_dir = 'nginx-clojure'
 
     handlers_dir = test_dir + '/' + 'handlers';
+
+    nginx_dir = test_dir+'/'+'nginx-clojure-0.2.2/nginx-1.6.0'
+
 
     # create nginx configuration
 
@@ -35,6 +41,12 @@ def start(args, logfile, errfile):
     #subprocess.Popen('sudo /usr/local/nginx/sbin/nginx -c `pwd`/nginx.conf', shell=True, cwd='dart-stream', stderr=errfile, stdout=logfile);
     #subprocess.Popen('`pwd`/sudo /usr/local/nginx/sbin/nginx -c `pwd`/nginx.conf', shell=True, cwd='dart-stream', stderr=errfile, stdout=logfile);
 
+
+    #setup_util.replace_text("nodejs/hello.js", "mongodb:\/\/.*\/hello_world", "mongodb://" + args.database_host + "/hello_world")
+
+
+    # configure database host
+    setup_util.replace_text(nginx_dir+"/"+"conf/nginx.conf", ":db-host \".*\"", args.database_host)
 
 
 
@@ -55,9 +67,7 @@ def start(args, logfile, errfile):
     # failure and let it point to target jar directly
 
 
-    test_dir = 'nginx-clojure'
 
-    nginx_dir = test_dir+'/'+'nginx-clojure-0.2.2/nginx-1.6.0'
 
     subprocess.Popen('./nginx-linux-x64', shell=True,
                      cwd=nginx_dir, stderr=errfile, stdout=logfile);
