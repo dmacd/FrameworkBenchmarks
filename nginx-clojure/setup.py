@@ -7,13 +7,22 @@ import setup_util
 import os
 
 def start(args, logfile, errfile):
+
+
+    stop(logfile, errfile); # kill anyone that gets in our way
+
+
   #  setup_util.replace_text('dart-stream/postgresql.yaml', 'host: .*', 'host: ' + args.database_host)
   #  setup_util.replace_text('dart-stream/mongodb.yaml', 'host: .*', 'host: ' + args.database_host)
   try:
-    #
+
+    test_dir = 'nginx-clojure'
+
+    handlers_dir = test_dir + '/' + 'handlers';
+
     # create nginx configuration
-    #
-    conf = []
+
+    #conf = []
     #    conf.append('worker_processes ' + str(args.max_threads) + ';')
     #
     # write nginx configuration to disk
@@ -26,6 +35,24 @@ def start(args, logfile, errfile):
     #subprocess.Popen('sudo /usr/local/nginx/sbin/nginx -c `pwd`/nginx.conf', shell=True, cwd='dart-stream', stderr=errfile, stdout=logfile);
     #subprocess.Popen('`pwd`/sudo /usr/local/nginx/sbin/nginx -c `pwd`/nginx.conf', shell=True, cwd='dart-stream', stderr=errfile, stdout=logfile);
 
+
+
+
+    # build the handlers project
+
+    subprocess.check_call("lein clean", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
+    subprocess.check_call("lein deps", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
+    subprocess.check_call("rm -rf target", shell=True, cwd=handlers_dir)
+
+    # pack all dependencies into a single jar: target/handlers-standalone.jar
+    subprocess.check_call("lein uberjar", shell=True, cwd=handlers_dir, stderr=errfile, stdout=logfile)
+
+    # -server is much faster
+    # 'lein run' passes '-client -XX:+TieredCompilation -XX:TieredStopAtLevel=1' which make it starts fast, but runs slow
+    #command = "java -server -jar target/http-kit-standalone.jar --db-host " + args.database_host
+
+    # todo: maybe copy output jar to jars dir in server? or better to avoid possibility of
+    # failure and let it point to target jar directly
 
 
     test_dir = 'nginx-clojure'

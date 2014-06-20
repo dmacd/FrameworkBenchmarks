@@ -24,6 +24,10 @@
     sudo apt-get install libjpeg62
 
 
+## build
+
+need to have an actual build system so handlers can be separate...
+
 
 ## boot
 
@@ -55,3 +59,5 @@ in the `nginx.conf`
 - nginx is only using 100% of one core apparently...should be able to use more !?
 
 -- might want to check other nginx configs
+
+
