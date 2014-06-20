@@ -80,14 +80,16 @@
 
 
 (defn handle-multiple-queries [req]
-    {
-   :status   200,
-   :headers  {"content-type" "application/json"},
-   :body     (clj-json.core/generate-string
-              (first (run-queries
-                      (get-query-count{:queries {:query-params req} }))))
 
-   })
+  (let [preq (params-request req)]
+    {
+     :status   200,
+     :headers  {"content-type" "application/json"},
+     :body     (clj-json.core/generate-string
+                (first (run-queries
+                        (get-query-count{:queries {:query-params preq} }))))
+
+     }))
 
 
 
